@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masten Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="STYLE.CSS">
+   
+    <style>
+       
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Masten Admin Dashboard</h1>
+    </div>
+
+    <div class="sidebar">
+        <a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="update_stock.php"><i class="fas fa-book"></i> Update Stock</a>
+        <a href="add_stocks.php"><i class="fas fa-clipboard-check"></i> Add Stock</a>
+        <a href="orders.php"><i class="fas fa-shopping-cart"></i> Orders</a>
+        <a href="appointments.php"><i class="fas fa-calendar-alt"></i> Appointments</a>
+        <a href="courier.php"><i class="fas fa-truck"></i> Courier</a>
+        <a href="logout.php" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+    </div>
+
+    <div class="main-content">
+        <div class="user-info">
+            <div class="container-user">
+                <img src="banner-img.png" alt="">
+                <div class="details">
+                    <h1>Welcome</h1>
+                    <h2>Kgaugelo Mmakola</h2>
+                </div>
+            </div>
+        </div>
+
+        <h2>Data Information</h2>
+
+        <div class="charts-container">
+            <div class="card">
+                <h3>Monthly Sales</h3>
+                <canvas id="salesChart"></canvas>
+            </div>
+
+            <div class="card">
+                <h3>Appointments Overview</h3>
+                <canvas id="appointmentsChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        &copy; 2024 Masten Dashboard
+    </div>
+
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        function confirmLogout() {
+            var logout = confirm("Are you sure you want to log out?");
+            if (logout) {
+                window.location.href = 'logout.php'; // Redirect to the logout PHP page
+            }
+        }
+
+        // Sales Chart
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Sales in 2024',
+                    data: [12000, 15000, 18000, 22000, 20000, 25000], // Placeholder data
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Appointments Chart
+        const appointmentsCtx = document.getElementById('appointmentsChart').getContext('2d');
+        const appointmentsChart = new Chart(appointmentsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Appointments',
+                    data: [50, 40, 60, 70], // Placeholder data
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
