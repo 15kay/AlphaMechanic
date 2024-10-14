@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation | ALPHA MECHANIC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgb(255, 255, 255);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+        }
+        .header img {
+            width: 150px;
+        }
+        h1 {
+            color: #333;
+        }
+        .email {
+            color: #333;
+        }
+        .email:hover {
+            color: blue;
+        }
+        .order-details {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="cid:logo1" alt="ALPHA MECHANIC Logo">
+            <h1>Order Confirmation</h1>
+        </div>
+        <p>Dear {{ customer_name }},</p>
+        <p>Thank you for your order! We're excited to let you know that your order has been successfully placed.</p>
+        
+        <div class="order-details">
+            <h2>Order Summary:</h2>
+            <p><strong>Order ID:</strong> {{ order_id }}</p>
+            <p><strong>Order Date:</strong> {{ order_date }}</p>
+            <!-- <p><strong>Items Ordered:</strong> {{ order_parts }}</p> -->
+        </div>
+
+        <p>If you have any questions about your order, feel free to reach out to us at <a href="mailto:kgaugelommakola@gmail.com" class="email">kgaugelommakola@gmail.com</a>.</p>
+        <p>Thank you for choosing ALPHA MECHANIC!</p>
+        
+        <div class="footer">
+            <p>&copy; 2024 ALPHA MECHANIC. All Rights Reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

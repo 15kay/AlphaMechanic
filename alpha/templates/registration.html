@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo1.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Registration | ALPHA MECHANIC</title>
+    <style>
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            margin-top: 3%;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            margin-top: 50px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="header">
+        <div class="logo">
+            <a href="/"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a class="active" href="/register">Appointments</a></li>
+                <li><a href="/track_ord">Track Orders</a></li>
+                <li><a href="/catalog">Catalog</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="user-menu"><a href="/login"><i class="fas fa-user-circle"></i> My Account</a></li>
+            </ul>
+        </div>
+    </section>
+    <div class="container">
+        <div class="title">Registration</div>
+        <div class="content">
+            <form id="registrationForm" action="/submit" method="POST">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Full Name</span>
+                        <input type="text" name="fullname" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Username</span>
+                        <input type="text" name="username" placeholder="Enter your username" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Email</span>
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Phone Number</span>
+                        <input type="text" name="phone" placeholder="Enter your phone number (e.g., +27 64 858 7175)" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Password</span>
+                        <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                        <div class="password-strength" id="password-strength"></div>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Confirm Password</span>
+                        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+                <div class="gender-details">
+                    <input type="radio" name="gender" value="Male" id="dot-1" required>
+                    <input type="radio" name="gender" value="Female" id="dot-2" required>
+                    <input type="radio" name="gender" value="Prefer not to say" id="dot-3" required>
+                    <span class="gender-title">Gender</span>
+                    <div class="category">
+                        <label for="dot-1">
+                            <span class="dot one"></span>
+                            <span class="gender">Male</span>
+                        </label>
+                        <label for="dot-2">
+                            <span class="dot two"></span>
+                            <span class="gender">Female</span>
+                        </label>
+                        <label for="dot-3">
+                            <span class="dot three"></span>
+                            <span class="gender">Prefer not to say</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="button">
+                    <input type="submit" value="Register">
+                </div>
+                <p>Already have an Account? <a href="/login" style="color: black; text-decoration: none;">Sign In</a></p>
+                <input type="hidden" id="form_submitted" value="false"> <!-- Hidden field to track submission state -->
+            </form>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        {% if message %}
+            <p><i class="fas fa-check-circle" style="color: green; font-size: 40px;"></i></p>
+            <p>{{ message }}</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // Modal and close button elements
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+    var message = null;
+  
+    // Display the modal only if there's a message
+    if (message) {
+        modal.style.display = "block"; // Show the modal
+    }
+
+    // Close the modal when the close button is clicked
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Close the modal if the user clicks anywhere outside of it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Password strength checker
+    function checkPasswordStrength(password) {
+        const strengthIndicator = document.getElementById('password-strength');
+        let strength = 0;
+
+        if (password.length >= 8) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/[a-z]/.test(password)) strength++;
+        if (/[0-9]/.test(password)) strength++;
+        if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+        // Update the strength text based on the calculated strength
+        switch (strength) {
+            case 0:
+            case 1:
+                strengthIndicator.textContent = 'Weak';
+                break;
+            case 2:
+                strengthIndicator.textContent = 'Moderate';
+                break;
+            case 3:
+            case 4:
+                strengthIndicator.textContent = 'Strong';
+                break;
+        }
+    }
+
+    // Attach event listener to password input for real-time strength checking
+    document.querySelector('input[name="password"]').addEventListener('input', function() {
+        checkPasswordStrength(this.value);
+    });
+</script>
+
+
+    <footer>
+        <div class="con-footer">
+            <div class="content-footer">
+                <h2>ALPHA MECHANIC</h2>
+                <hr>
+                <p>Spares Mechanic is your Trusted <br> Online Destination for Car Spares <br> in South Africa. Shop over 3000 new, <br> used, and alternative parts online for <br> hassle-free car spares shopping.</p>
+                <div class="logo">
+                    <a href="/"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+                </div>
+            </div>
+            <div class="content-footer">
+                <h2>CATEGORIES</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="">All parts</a>
+                    <a href="">Accessories</a>
+                </div>
+            </div>
+            <div class="content-footer">
+                <h2>INFORMATION</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="">Home</a>
+                    <a href="">About Us</a>
+                    <a href="">Contact Us</a>
+                    <a href="">Terms & Conditions</a>
+                </div>
+            </div>
+            <div class="content-footer" id="contact">
+                <h2>Contact Us</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="">+27 64 858 7175</a>
+                    <a href="">info@alphamechanic.com</a>
+                </div>
+                <h2>FOLLOW US</h2>
+                <div class="social-media">
+                    <a href=""><i class="fab fa-facebook-f"></i></a>
+                    <a href=""><i class="fab fa-twitter"></i></a>
+                    <a href=""><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+    </footer>
+</body>
+
+</html>

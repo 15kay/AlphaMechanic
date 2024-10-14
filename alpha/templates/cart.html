@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | ALPHA MECHANIC</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo1.png') }}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='catalog.css') }}">
+  <style>
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f4f4f4;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-family: 'Poppins', sans-serif;
+    }
+         /* Dropdown container */
+         .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        /* Dropdown button */
+        .dropbtn {
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        /* Show the dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Change the color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #ddd;}
+    /* Cart Header */
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      color: #333;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    /* Cart Items */
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 10px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item p {
+      margin: 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .cart-item button {
+      padding: 8px 12px;
+      border: none;
+      background-color: #ff4747;
+      color: white;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cart-item button:hover {
+      background-color: #ff6b6b;
+    }
+
+    .cart-item .item-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item-controls .quantity-btn {
+      background-color: #007bff;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .item-controls .quantity-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .cart-item .quantity-display {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* Total Price */
+    .total {
+      text-align: right;
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    /* Clear Cart Button */
+    button.clear-cart-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #6b5516;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    button.clear-cart-btn:hover {
+      background-color: #9d7711;
+    }
+
+    /* Proceed to Checkout Button */
+    button.checkout-cart-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #4ba72d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    button.checkout-cart-btn:hover {
+      background-color: #5ada2f;
+    }
+
+    button.checkout-cart-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .item-controls {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="header">
+    <div class="logo">
+      <a href="/"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+    </div>
+    <ul id="navbar">
+      <li><a href="/Customer-dashboard">Home</a></li>
+      <li class="dropdown">
+        <a href="" class="dropbtn">Appointment</a>
+        <div class="dropdown-content">
+            <a href="/book-appointment">Make Appointment</a>
+            <a href="/view_appointments">View Appointment</a>
+        </div>
+    </li>
+  
+      <li><a  href="/catalogue">Catalog</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">More</a>
+        <div class="dropdown-content">
+            <a href="/view_orders">View Orders</a>
+            <a href="/returns">Returns</a>
+            <a href="/address-book">Address Book</a>
+            <a href="/track-orders">Track Orders</a>
+        </div>
+    </li>
+      <li id="lg-bag"><a href="/cart" class="active"><i class="far fa-shopping-bag"></i> (<span id="cart-count">0</span>)</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn"><i class="fas fa-user-circle"></i> {{ fullname }}</a>
+        <div class="dropdown-content">
+            <a href="#">Profile</a>
+            <a href="{{ url_for('logout') }}" onclick="return confirm('Are you sure you want to sign out?')">Sign Out</a>
+        </div>
+    </li>
+    </ul>
+  </section>
+
+  <div class="container">
+    <h2>Your Shopping Carts</h2>
+    <div id="cart-items">
+      <!-- Items will be injected here -->
+    </div>
+
+    <div class="total">
+      <h3>Total: R<span id="total-price">0</span></h3>
+    </div>
+
+    <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+    <button class="checkout-cart-btn" id="checkout-btn" disabled>Proceed to Checkout</button>
+  </div>
+
+  <footer>
+    <div class="con-footer">
+        <div class="content-footer">
+            <h2>ALPHA MECHANIC</h2>
+            <hr>
+            <P>Spares Mechanic is your Trusted <br>
+                Online Destination for Car Spares <br>
+                in South Africa. Shop over 3000 new, <br>
+                used,and alternative parts online for <br>
+                hassle-free car spares shopping.</P>
+
+                <div class="logo">
+                    <a href="/"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+                </div>
+        </div>
+        <div class="content-footer">
+            <h2>CATEGORIES</h2>
+            <hr>
+            <div class="footer-menu">
+                <a href="">All pairs</a>
+                <a href="">Accessories</a>
+            </div>
+        </div>
+        <div class="content-footer">
+            <h2>INFORMATION</h2>
+            <hr>
+            <div class="footer-menu">
+                <a href="">Home</a>
+                <a href="">About Us</a>
+                <a href="">Contact Us</a>
+                <a href="">Terms & Conditions</a>
+            </div>
+        </div>
+        <div class="content-footer" id="contact">
+            <h2>Contact Us</h2>
+            <hr>
+            <div class="footer-menu">
+                <a href="">+27 64 858 7175</a>
+                <a href="">info@alphamechanic.com</a>
+            </div>
+            <h2>FOLLOW US</h2>
+            <div class="social-media">
+                <a href=""><i class="fab fa-facebook-f"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+                <a href=""><i class="fab fa-instagram"></i></a>
+                
+            </div>
+        </div>
+
+    </div>
+    <!-- <div class="copyright">
+        <p style="color: rgb(38, 37, 37);text-align: center;margin-top: 100px;">Copyright© 2023 Spares Mechanic - All Rights Reserved.</p>
+    </div> -->
+</footer>
+
+  <script>
+    function displayCart() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let cartItemsDiv = document.getElementById('cart-items');
+      let totalPrice = 0;
+
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+      } else {
+        cartItemsDiv.innerHTML = '';
+        cart.forEach((item, index) => {
+          cartItemsDiv.innerHTML += `
+            <div class="cart-item">
+              <p>${item.name} - R${item.price}</p>
+              <div class="item-controls">
+                <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                <span class="quantity-display">${item.quantity}</span>
+                <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                <button onclick="removeFromCart(${index})">Remove</button>
+              </div>
+            </div>
+          `;
+          totalPrice += item.price * item.quantity;
+        });
+      }
+
+      document.getElementById('total-price').textContent = totalPrice.toFixed(2);
+      document.getElementById('cart-count').textContent = cart.length;
+
+      // Enable/disable checkout button based on total price
+      let checkoutBtn = document.getElementById('checkout-btn');
+      if (totalPrice > 0) {
+        checkoutBtn.disabled = false;
+      } else {
+        checkoutBtn.disabled = true;
+      }
+    }
+
+    function updateQuantity(index, change) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart[index].quantity += change;
+
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1); // Remove item if quantity is 0 or less
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      displayCart();
+    }
+
+    function removeFromCart(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1); // Remove item from cart
+      localStorage.setItem('cart', JSON.stringify(cart));
+      displayCart();
+    }
+
+    function clearCart() {
+      localStorage.removeItem('cart');
+      displayCart();
+    }
+
+    // Redirect to paynow.html on checkout button click
+    document.getElementById('checkout-btn').addEventListener('click', function() {
+      window.location.href = '/payment'; //
+    });
+
+    // Load cart items when the page is loaded
+    window.onload = displayCart;
+  </script>
+</body>
+</html>

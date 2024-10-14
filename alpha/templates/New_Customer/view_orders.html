@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo1.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        /* Dropdown container */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        /* Dropdown button */
+        .dropbtn {
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        /* Show the dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Change the color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            max-width: 100%;
+            width: 120%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        button {
+            padding: 10px;
+            background: linear-gradient(135deg, #2d3134, #786018);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        button:hover {
+            background: linear-gradient(-135deg, #17191a, #75591b);
+        }
+    </style>
+</head>
+<body>
+
+    <section id="header">
+        <div class="logo">
+            <a href="index.html"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="/Customer-dashboard" class="active">Dashboard</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Appointment</a>
+                    <div class="dropdown-content">
+                        <a href="/book-appointment">Make Appointment</a>
+                        <a href="/view-appointments">View Appointment</a>
+                    </div>
+                </li>
+                
+                <li><a href="/Catalogue">Catalog</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">More</a>
+                    <div class="dropdown-content">
+                        <a href="/view_orders">View Orders</a>
+                        <a href="/returns">Returns</a>
+                        <a href="/address-book">Address Book</a>
+                        <a href="/track-orders">Track Orders</a>
+                    </div>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn"><i class="fas fa-user-circle"></i> {{ fullname }}</a>
+                    <div class="dropdown-content">
+                        <a href="#">Profile</a>
+                        <a href="{{ url_for('logout') }}" onclick="return confirm('Are you sure you want to sign out?')">Sign Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+<div class="container">
+    <h2>Your Orders</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Product Name</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order[1] }}</td>
+                <td>{{ order[2] }}</td>
+                <td>{{ order[4] }}</td>
+                <td>{{ order[3] }}</td>
+                <td>
+                    <button onclick="window.location.href='/returns'">Return</button>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if orders|length == 0 %}
+            <tr>
+                <td colspan="5" style="text-align: center;">No orders found.</td>
+            </tr>
+            {% endif %}
+            
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div class="con-footer">
+        <div class="content-footer">
+            <h2>ALPHA MECHANIC</h2>
+            <hr>
+            <p>Spares Mechanic is your Trusted <br>
+                Online Destination for Car Spares <br>
+                in South Africa. Shop over 3000 new, <br>
+                used, and alternative parts online for <br>
+                hassle-free car spares shopping.</p>
+
+            <div class="logo">
+                <a href="index.html"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+            </div>
+        </div>
+        <div class="content-footer">
+            <h2>CATEGORIES</h2>
+            <hr>
+            <div class="footer-menu">
+                <a href="">All Parts</a>
+                <a href="">Accessories</a>
+            </div>
+        </div>
+        <div class="content-footer">
+            <h2>INFORMATION</h2>
+            <hr>
+            <div class="footer-menu">
+                <a href="">Home</a>
+                <a href="">About Us</a>
+                <a href="">Contact Us</a>
+                <a href="">Terms & Conditions</a>
+            </div>
+        </div>
+        <div class="content-footer" id="contact">
+            <h2>Contact Us</h2>
+            <hr>
+            <div class="footer-menu">
+                <a href="">+27 64 858 7175</a>
+                <a href="">info@alphamechanic.com</a>
+            </div>
+            <h2>FOLLOW US</h2>
+            <div class="social-media">
+                <a href=""><i class="fab fa-facebook-f"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+                <a href=""><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

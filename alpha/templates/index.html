@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" /></head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo1.png') }}">
+  
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+
+    <title>Home Page | ALPHA MECHANIC</title>
+</head>
+<style>
+
+</style>
+
+<body>
+
+        <section id="header">
+            <div class="logo">
+                <a href="/"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+            </div>
+            <div>
+                <ul id="navbar">
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="/register">Appointments</a></li>
+                    <li><a href="/track_ord">Track Orders</a></li>
+                    <li><a href="/catalog">Catalog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="user-menu"><a  href="/login"><i class="fas fa-user-circle"></i> My Account</a></li>
+                </ul>
+            </div>
+            
+        </section>
+
+        <div class="widget-container">
+            <div class="widget">
+                <img src="{{ url_for('static', filename='slides/main.png') }}" alt="Main Slide">
+            </div>
+            <div class="widget">
+                <img src="{{ url_for('static', filename='slides/rover.png') }}" alt="Rover Slide">
+            </div>
+            <div class="widget">
+                <img src="{{ url_for('static', filename='slides/audi.png') }}" alt="Audi Slide">
+            </div>
+        </div>
+        
+        <div class="in">
+            <!-- Content for the "in" section -->
+        </div>
+        
+
+        <div class="info-section">
+            <div class="info-box">
+                <i class="icon gift"></i>
+                <h3>We Deliver</h3>
+                <p>Country Wide</p>
+            </div>
+            <div class="info-box">
+                <i class="icon support"></i>
+                <h3>Support</h3>
+                <p>8:00-17:00<br>Call Us Now</p>
+            </div>
+            <div class="info-box">
+                <i class="icon safety"></i>
+                <h3>100% Safety</h3>
+                <p>Secure Payments</p>
+            </div>
+            <div class="info-box">
+                <i class="icon hot-offers"></i>
+                <h3>Hot Offers</h3>
+                <p>Discounts Daily</p>
+            </div>
+        </div>
+        
+<!-- Catalog -->
+
+<section id="product1" class="product-p1">
+    <h2>Featured Products</h2>
+    <p>Car parts</p>
+    <div class="pro-container">
+        <div class="pro">
+            <img src="{{ url_for('static', filename='catalog/light(1).png') }}" alt="Spot Light">
+            <div class="des">
+                <h3>Spot Light</h3>
+                <p>Volkswagen Jetta Mk 7 Spot Light Right</p>
+            </div>
+        </div>
+        <div class="pro">
+            <img src="{{ url_for('static', filename='catalog/bamber2.png') }}" alt="Front Bumper">
+            <div class="des">
+                <h3>Front Bumper</h3>
+                <p>Ford Figo Pre Face Front Bumper With Grille And Spot Light Holes</p>
+            </div>
+        </div>
+        <div class="pro">
+            <img src="{{ url_for('static', filename='catalog/compressor(1).png') }}" alt="Portable Compressor">
+            <div class="des">
+                <h3>Fully inflates car tires</h3>
+                <p>Moto-Quip 26L/Min Portable Compressor</p>
+            </div>
+        </div>
+        <div class="pro">
+            <img src="{{ url_for('static', filename='catalog/bot(1).png') }}" alt="Front Fender Liner">
+            <div class="des">
+                <h3>Front Fender Liner</h3>
+                <p>Volkswagen Golf Mk 7 Front Fender Liner Front Piece Left <br> (better Quality)</p>
+            </div>
+        </div>
+    </div>
+    <div class="btn">
+        <a href="/catalog" target="_blank">More</a>
+    </div>
+</section>
+
+
+    <footer>
+        <div class="con-footer">
+            <div class="content-footer">
+                <h2>ALPHA MECHANIC</h2>
+                <hr>
+                <P>Spares Mechanic is your Trusted <br>
+                    Online Destination for Car Spares <br>
+                    in South Africa. Shop over 3000 new, <br>
+                    used,and alternative parts online for <br>
+                    hassle-free car spares shopping.</P>
+
+                    <div class="logo">
+                        <a href="index.html"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+                    </div>
+            </div>
+            <div class="content-footer">
+                <h2>CATEGORIES</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="">All pairs</a>
+                    <a href="">Accessories</a>
+                </div>
+            </div>
+            <div class="content-footer">
+                <h2>INFORMATION</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="../INDEX/index.html">Home</a>
+                    <a href="">Contact Us</a>
+                    <a href="">Terms & Conditions</a>
+                </div>
+            </div>
+            <div class="content-footer" id="contact">
+                <h2>Contact Us</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="">+27 64 858 7175</a>
+                    <a href="">info@alphamechanic.com</a>
+                </div>
+                <h2>FOLLOW US</h2>
+                <div class="social-media">
+                    <a href=""><i class="fab fa-facebook-f"></i></a>
+                    <a href=""><i class="fab fa-twitter"></i></a>
+                    <a href=""><i class="fab fa-instagram"></i></a>
+                    
+                </div>
+            </div>
+
+        </div>
+        <!-- <div class="copyright">
+            <p style="color: rgb(38, 37, 37);text-align: center;margin-top: 100px;">Copyright© 2023 Spares Mechanic - All Rights Reserved.</p>
+        </div> -->
+    </footer>
+    <script>
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var slides = document.getElementsByClassName("widget");
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 5000); // Change image every 5 seconds
+        }
+    </script>
+</body>
+
+</html>

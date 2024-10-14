@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard | Alpha Mechanic</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo1.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Dropdown container */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        /* Dropdown button */
+        .dropbtn {
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        /* Show the dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Change the color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        /* Dashboard Analytics Section */
+        #dashboard-analytics {
+            background-color: #f8f9fa; /* Light background for contrast */
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #dashboard-analytics h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333; /* Dark text for headings */
+            margin-bottom: 20px;
+        }
+
+        .analytics-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .analytics-item {
+            background-color: #ffffff; /* White background for cards */
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            margin: 10px;
+            flex: 1 1 30%; /* Flex item to take up space */
+            min-width: 280px; /* Minimum width for responsiveness */
+            transition: transform 0.2s; /* Animation for hover */
+        }
+
+        .analytics-item:hover {
+            transform: scale(1.02); /* Slightly enlarge on hover */
+        }
+
+        .analytics-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #55430f;; /* Primary color for headings */
+            margin-bottom: 10px;
+        }
+
+        .analytics-item p {
+            font-size: 16px;
+            color: #666; /* Grey text for description */
+        }
+
+        /* Table Styling */
+        .analytics-item table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .analytics-item th, 
+        .analytics-item td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd; /* Separator line */
+        }
+
+        .analytics-item th {
+            background-color: #55430f; /* Table header color */
+            color: #fff; /* White text for header */
+        }
+
+        .analytics-item tr:hover {
+            background-color: #f1f1f1; /* Row hover effect */
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <div class="logo">
+            <a href="index.html"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="/Customer-dashboard" class="active">Dashboard</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Appointment</a>
+                    <div class="dropdown-content">
+                        <a href="/book-appointment">Make Appointment</a>
+                        <a href="/view-appointments">View Appointment</a>
+                    </div>
+                </li>
+                
+                <li><a href="/Catalogue">Catalog</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">More</a>
+                    <div class="dropdown-content">
+                        <a href="/view_orders">View Orders</a>
+                        <a href="/returns">Returns</a>
+                        <a href="/address-book">Address Book</a>
+                        <a href="/track-orders">Track Orders</a>
+                    </div>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn"><i class="fas fa-user-circle"></i> {{ fullname }}</a>
+                    <div class="dropdown-content">
+                        <a href="#">Profile</a>
+                        <a href="{{ url_for('logout') }}" onclick="return confirm('Are you sure you want to sign out?')">Sign Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- Your existing dashboard content -->
+
+    <section id="dashboard-analytics">
+        <h2>Dashboard Analytics</h2>
+        <div class="analytics-container">
+            <div class="analytics-item">
+                <h3>Upcoming Appointments</h3>
+                <p>You have 2 upcoming appointments</p>
+            </div>
+            <div class="analytics-item">
+                <h3>Spending Over Time</h3>
+                <canvas id="spendingChart"></canvas>
+            </div>
+            <div class="analytics-item">
+                <h3>Service Frequency</h3>
+                <canvas id="serviceFrequencyChart"></canvas>
+            </div>
+            <div class="analytics-item">
+                <h3>Order History</h3>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Service/Part</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>2024-09-22</td>
+                        <td>Oil Change</td>
+                        <td>Completed</td>
+                    </tr>
+                    <tr>
+                        <td>2024-09-20</td>
+                        <td>Tire Replacement</td>
+                        <td>In Progress</td>
+                    </tr>
+                    <tr>
+                        <td>2024-09-15</td>
+                        <td>Brake Check</td>
+                        <td>Completed</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Example chart data for spending over time
+        const ctxSpending = document.getElementById('spendingChart').getContext('2d');
+        const spendingChart = new Chart(ctxSpending, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Spending (R)',
+                    data: [200, 300, 250, 400, 350, 500],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Example chart data for service frequency
+        const ctxFrequency = document.getElementById('serviceFrequencyChart').getContext('2d');
+        const serviceFrequencyChart = new Chart(ctxFrequency, {
+            type: 'bar',
+            data: {
+                labels: ['Oil Change', 'Brake Check', 'Tire Replacement'],
+                datasets: [{
+                    label: 'Frequency',
+                    data: [5, 3, 4],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

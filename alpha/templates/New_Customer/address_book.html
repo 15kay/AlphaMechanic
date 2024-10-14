@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Book</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo1.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        /* Dropdown container */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        /* Dropdown button */
+        .dropbtn {
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        /* Show the dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Change the color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e2e2e2;
+        }
+
+        .form-container {
+            margin-top: 20px;
+        }
+
+        .form-container input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .add-address-btn {
+            background-color: #8a711e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .add-address-btn:hover {
+            background-color: rgb(56, 50, 12);
+        }
+
+        /* Map styles */
+        #map {
+            height: 300px;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+    <!-- Include Google Maps JavaScript API -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+
+<body>
+    <section id="header">
+        <div class="logo">
+            <a href="index.html"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="/Customer-dashboard" class="active">Dashboard</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Appointment</a>
+                    <div class="dropdown-content">
+                        <a href="/book-appointment">Make Appointment</a>
+                        <a href="/view-appointments">View Appointment</a>
+                    </div>
+                </li>
+                
+                <li><a href="/Catalogue">Catalog</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">More</a>
+                    <div class="dropdown-content">
+                        <a href="/view_orders">View Orders</a>
+                        <a href="/returns">Returns</a>
+                        <a href="/address-book">Address Book</a>
+                        <a href="/track-orders">Track Orders</a>
+                    </div>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn"><i class="fas fa-user-circle"></i> {{ fullname }}</a>
+                    <div class="dropdown-content">
+                        <a href="#">Profile</a>
+                        <a href="{{ url_for('logout') }}" onclick="return confirm('Are you sure you want to sign out?')">Sign Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <main class="container">
+        <h2>Your Address Book</h2>
+        <form action="{{ url_for('address_book') }}">
+            <button class="add-address-btn">View Addresses</button>
+        </form>
+       
+        <table>
+            <thead>
+                <tr>
+                    <th>Street</th>
+                    <th>Surburb</th>
+                    <th>Town</th>
+                    <th>Province</th>
+                    <th>PostalCode</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for address in addresses %}
+                <tr>
+                    <td>{{ address[1] }}</td>
+                    <td>{{ address[2] }}</td>
+                    <td>{{ address[3] }}</td>
+                    <td>{{ address[4] }}</td>
+                    <td>{{ address[5] }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_address', address_id=address[0]) }}" method="post">
+                            <button class="add-address-btn">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="form-container">
+            <h3>Add New Address</h3>
+            <form id="addressForm" action="{{ url_for('add_address') }}" method="post">
+                <input type="text" name="street" placeholder="Street name" required name="">
+                <input type="text" name="suburb" placeholder="Surburb" required>
+                <input type="text" name="town" placeholder="Town" required>
+                <input type="text" name="province" placeholder="Province" required>
+                <input type="text" name="postalcode" placeholder="Postal Code" required>
+                <button type="submit" class="add-address-btn">Add Address</button>
+            </form>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="con-footer">
+            <div class="content-footer">
+                <h2>ALPHA MECHANIC</h2>
+                <hr>
+                <P>Spares Mechanic is your Trusted <br>
+                    Online Destination for Car Spares <br>
+                    in South Africa. Shop over 3000 new, <br>
+                    used, and alternative parts online for <br>
+                    hassle-free car spares shopping.</P>
+
+                <div class="logo">
+                    <a href="index.html"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+                </div>
+            </div>
+            <div class="content-footer">
+                <h2>CATEGORIES</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="">All pairs</a>
+                    <a href="">Accessories</a>
+                </div>
+            </div>
+            <div class="content-footer">
+                <h2>INFORMATION</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="">Home</a>
+                    <a href="">About Us</a>
+                    <a href="">Contact Us</a>
+                    <a href="">Terms & Conditions</a>
+                </div>
+            </div>
+            <div class="content-footer" id="contact">
+                <h2>Contact Us</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="">+27 64 858 7175</a>
+                    <a href="">info@alphamechanic.com</a>
+                </div>
+                <h2>FOLLOW US</h2>
+                <div class="social-media">
+                    <a href=""><i class="fab fa-facebook-f"></i></a>
+                    <a href=""><i class="fab fa-twitter"></i></a>
+                    <a href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a href=""><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let map, marker;
+
+        // Initialize and add the map
+        function initMap() {
+            const defaultLocation = { lat: -34.397, lng: 150.644 }; // Default location
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: defaultLocation,
+                zoom: 8,
+            });
+
+            marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                title: 'Selected Location',
+            });
+
+            // Add click listener to the map
+            map.addListener('click', function(event) {
+                const lat = event.latLng.lat();
+                const lng = event.latLng.lng();
+                setMarkerPosition(lat, lng);
+            });
+        }
+
+        function setMarkerPosition(lat, lng) {
+            marker.setPosition({ lat: lat, lng: lng });
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+        }
+
+        function addAddress() {
+            // Get values from the form
+            const fullName = document.getElementById('fullName').value;
+            const address = document.getElementById('address').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+
+            // Perform your AJAX request to save the address here
+            // Example using fetch:
+            fetch('/add_address', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    full_name: fullName,
+                    address: address,
+                    phone_number: phoneNumber,
+                    latitude: latitude,
+                    longitude: longitude,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Optionally reload the page or update the address table dynamically
+                location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+            return false; // Prevent form submission
+        }
+
+        function deleteAddress(name) {
+            // Perform delete action (this can be handled via AJAX as well)
+            if (confirm('Are you sure you want to delete this address?')) {
+                fetch(`/delete_address/${name}`, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Reload the page or remove the row dynamically
+                    location.reload();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

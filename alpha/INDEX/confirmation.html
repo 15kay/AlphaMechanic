@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../INDEX/logo1.png">
+    <title>Payment Confirmation | ALPHA MECHANIC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+        .confirmation-box {
+            background-color: white;
+            padding: 30px;
+            border: 2px solid #a66502;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .confirmation-box h1 {
+            color: #a66502;
+        }
+        .confirmation-box p {
+            font-size: 1.2em;
+        }
+        button{
+            background-color: #a66502;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+     <!-- <script>
+        // Clear the cart and redirect to index.html after 5 seconds
+        setTimeout(function() {
+            localStorage.removeItem('cart');  // Clear the cart
+            window.location.href = 'index.php';  // Redirect to index.html
+        }, 5000);
+    </script> -->
+</head>
+<body>
+    <div class="confirmation-box">
+        <h1>Payment Successful!</h1>
+        <p>Thank you for your payment, <span id="cardHolderName"></span>!</p>
+        <p>Your payment details:</p>
+        <p>Card Number: <span id="cardNumberDisplay"></span></p>
+        <p>Expiry Date: <span id="expiryDateDisplay"></span></p>
+        <p>CVV: <span id="cvvDisplay"></span></p>
+        <button onclick="goBack()">Home</button>
+    </div>
+    
+    <script>
+        function goBack() {
+            window.location.href = "cart.php";
+        }
+    
+        // Retrieve data from localStorage
+        document.getElementById('cardHolderName').innerText = localStorage.getItem('cardHolder') || 'Unknown';
+        document.getElementById('cardNumberDisplay').innerText = localStorage.getItem('cardNumber') || 'N/A';
+        document.getElementById('expiryDateDisplay').innerText = localStorage.getItem('expiryDate') || 'N/A';
+        document.getElementById('cvvDisplay').innerText = localStorage.getItem('cvv') || 'N/A';
+    </script>
+    
+    </body>
+    </html>

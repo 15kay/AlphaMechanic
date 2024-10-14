@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+
+        .mid-container {
+            background-color: purple;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .container-chat {
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+        }
+
+        .message {
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 10px 0;
+            width: fit-content;
+            max-width: 70%;
+            clear: both;
+        }
+
+        .botmessage {
+            background-color: rgba(19, 6, 31, 0.689);
+            color: #fff;
+            float: left;
+        }
+
+        .incoming {
+            background-color: rgba(240, 240, 240, 1);
+            color: #000;
+            float: right;
+        }
+
+        .submit-message {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+
+        .submit-message textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 16px;
+            resize: none;
+        }
+
+        .submit-message button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: purple;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="mid-container">
+            <h1>CHATBOT</h1>
+        </div>
+        <div class="container-chat" id="chat">
+            <div class="message botmessage">
+                <p>Hello, welcome to our chatbot</p>
+            </div>
+        </div>
+        <div class="submit-message">
+            <textarea name="message" id="message" placeholder="Type your message here" rows="3" required></textarea>
+            <button name="submit" onclick="sendMessage()">Submit</button>
+        </div>
+    </div>
+    <iframe src="https://app.vectorshift.ai/chatbots/embedded/66ad82ead6deeca92685048d?openChatbot=true" width="500px" height="600px" style="border: none; position: fixed; bottom: 0; right: 0; margin: 10px;" allow="clipboard-read; clipboard-write"/>
+<!-- 
+<script>
+    const apiKey = 'YOsk_aSm4bV2GJiEYzdQOZnki9HSTiZSMDq5bjyJ2ex33FtKu8oob'; // Replace with your actual API key
+    const genAI = new GoogleGenerativeAI(apiKey);
+
+    const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+    });
+
+    const generationConfig = {
+        temperature: 1,
+        topP: 0.95,
+        topK: 64,
+        maxOutputTokens: 8192,
+        responseMimeType: "text/plain",
+    };
+
+    async function sendMessage() {
+        const messageInput = document.getElementById('message');
+        const userMessage = messageInput.value.trim();
+
+        if (userMessage === "") {
+            return;
+        }
+
+        const chatContainer = document.getElementById('chat');
+
+        // Append user's message to chat
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.classList.add('message', 'incoming');
+        userMessageDiv.innerHTML = `<p>${userMessage}</p>`;
+        chatContainer.appendChild(userMessageDiv);
+
+        // Clear input
+        messageInput.value = "";
+
+        // Scroll to the bottom
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+
+        try {
+            // Determine bot's response
+            const result = await model.generateContent({
+                contents: [{
+                    role: "user",
+                    text: userMessage
+                }],
+                generationConfig,
+            });
+
+            console.log('API response:', result); // Debugging line
+
+            // Check if response contains text
+            if (result.contents && result.contents.length > 0 && result.contents[0].text) {
+                // Append bot's response to chat
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.classList.add('message', 'botmessage');
+                botMessageDiv.innerHTML = `<p>${result.contents[0].text}</p>`;
+                chatContainer.appendChild(botMessageDiv);
+            } else {
+                console.error('No response text found');
+            }
+        } catch (error) {
+            console.error('Error generating response:', error);
+        }
+
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+</script> -->
+
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo1.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+
+    <title>Login | ALPHA MECHANIC</title>
+</head>
+
+<body>
+    <section id="header">
+        <div class="logo">
+            <a href="/"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/register">Appointments</a></li>
+                <li><a href="/track_ord">Track Orders</a></li>
+                <li><a href="/catalog">Catalog</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="user-menu"><a class="active" href="/login"><i class="fas fa-user-circle"></i> My Account</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="container">
+        <form action="/login" method="POST">
+            <div class="title">Login</div>
+            <div class="input-box underline">
+                <input type="text" placeholder="Enter Your Email" required name="email">
+                <div class="underline"></div>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Enter Your Password" required name="password">
+                <div class="underline"></div>
+            </div>
+            <div class="input-box button">
+                <input type="submit" value="Continue">
+            </div>
+            <p>Forgot password? <a href="/forgot-password" style="color: black;text-decoration: none;">Click Here</a></p>
+            <p>Don't have an account? <a href="/register" style="color: black;text-decoration: none;">Sign Up</a></p>
+        </form>
+    </div>
+
+    <footer>
+        <div class="con-footer">
+            <div class="content-footer">
+                <h2>ALPHA MECHANIC</h2>
+                <hr>
+                <p>Spares Mechanic is your trusted online destination for car spares in South Africa. Shop over 3000 new, used, and alternative parts online for hassle-free car spares shopping.</p>
+                <div class="logo">
+                    <a href="../INDEX/index.html"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+                </div>
+            </div>
+
+            <div class="content-footer">
+                <h2>CATEGORIES</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="#">All parts</a>
+                    <a href="#">Accessories</a>
+                </div>
+            </div>
+
+            <div class="content-footer">
+                <h2>INFORMATION</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="#">Home</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+
+            <div class="content-footer" id="contact">
+                <h2>Contact Us</h2>
+                <hr>
+                <div class="footer-menu">
+                    <a href="#">+27 64 858 7175</a>
+                    <a href="#">info@alphamechanic.com</a>
+                </div>
+                <h2>FOLLOW US</h2>
+                <div class="social-media">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

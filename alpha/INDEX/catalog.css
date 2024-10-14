@@ -1,0 +1,335 @@
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f39c12;
+    --background-color: #f5f7fa;
+    --text-color: #333;
+}
+
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 10px auto 0;
+    padding: 2rem 0;  
+}
+
+.search-bar {
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 600px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#search-input:focus {
+    outline: none;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 2rem;
+    
+}
+
+.service-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.service-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.service-card h3 {
+    color: #000;
+    margin-top: 0;
+    text-decoration: none;
+}
+
+.service-card p {
+    margin-bottom: 0.5rem;
+    color: #000;
+    text-decoration: none;
+}
+
+.service-card small {
+    color: var(--secondary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(74, 144, 226, 0.1), rgba(74, 144, 226, 0));
+    transition: top 0.3s ease-in-out;
+}
+
+.service-card:hover::before {
+    top: 0;
+}
+
+#no-results-message {
+    display: none;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-top: 2rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.modal-title {
+    color: #000;
+    margin-top: 0;
+}
+
+.modal-description {
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.modal-category {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.modal-button {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+    background-color: #3a7bc0;
+}
+
+/*  */
+.container .service-card i {
+    font-size: 17px;
+    color: #a66502;
+   right: 80px;
+   margin-bottom: 20px;
+  }
+.container .service-card .cart {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50px;
+
+    font-weight: 500;
+    color: #a66502;
+    position: absolute;
+    bottom: 20px;
+    right: 20;
+  }
+  .container .service-card .cart_button {
+    width: 40px;
+    height: 20px;
+    line-height: 40px;
+    border-radius: 50px;
+    margin-top: px;
+    font-weight: 500;
+    color: #a66502;
+    position: absolute;
+
+    right: 10px;
+  }
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+    
+    header {
+        flex-direction: column;
+        padding: 1rem 0;
+    }
+    
+    nav ul {
+        margin-top: 1rem;
+    }
+
+    nav {
+        margin-right: 0; /* Reset margin for smaller screens */
+    }
+    
+    #search-input {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    header {
+        padding: 0.5rem;
+    }
+    
+    header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .logo {
+        width: 30px;
+        height: 30px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 0.25rem;
+    }
+    
+    nav ul li a {
+        font-size: 0.9rem;
+    }
+    
+    .search-bar {
+        margin-top: 1rem;
+    }
+    
+    #search-input {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+        max-width: 90%;
+    }
+}
+
+.burger-menu {
+    display: none;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+.burger-menu div {
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    margin: 5px 0;
+    transition: 0.4s;
+}
+.close-menu {
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+}
+@media screen and (max-width: 768px) {
+    .burger-menu {
+        display: block;
+    }
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 120px;
+        height: 40vh;
+        background-color: rgba(0, 0, 0, 0.8);
+        padding-top: 15px;
+        transition: 0.3s;
+    }
+    nav ul.show {
+        right: 0;
+        display: flex;
+    }
+    nav ul li {
+        text-align: center;
+        padding: 4px;
+    }
+}

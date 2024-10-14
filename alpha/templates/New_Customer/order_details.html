@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking | ALPHA MECHANIC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" /></head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo1.png') }}">
+  
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+  
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5f4a14;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #906f1e;
+        }
+        .order-status {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .order-status p {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <div class="logo">
+            <a href="index.html"><img src="{{ url_for('static', filename='logo1.png') }}" alt="alphamechanic"></a>
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="/Customer-dashboard" class="active">Dashboard</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Appointment</a>
+                    <div class="dropdown-content">
+                        <a href="/book-appointment">Make Appointment</a>
+                        <a href="/view-appointments">View Appointment</a>
+                    </div>
+                </li>
+                
+                <li><a href="/Catalogue">Catalog</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">More</a>
+                    <div class="dropdown-content">
+                        <a href="/view_orders">View Orders</a>
+                        <a href="/returns">Returns</a>
+                        <a href="/address-book">Address Book</a>
+                        <a href="/track-orders">Track Orders</a>
+                    </div>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn"><i class="fas fa-user-circle"></i> {{ fullname }}</a>
+                    <div class="dropdown-content">
+                        <a href="#">Profile</a>
+                        <a href="{{ url_for('logout') }}" onclick="return confirm('Are you sure you want to sign out?')">Sign Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+<div class="container">
+    <h1>Track Your Order</h1>
+    <div class="form-group">
+        <label for="orderNumber">Enter your order number:</label>
+        <input type="text" id="orderNumber" placeholder="e.g., 1234567890">
+    </div>
+    <button onclick="trackOrder()">Track Order</button>
+
+    <div class="order-status" id="orderStatus" style="display: none;">
+        <p id="statusMessage"></p>
+    </div>
+</div>
+<footer>
+    <div class="con-footer">
+        <div class="content-footer">
+            <h2>ALPHA MECHANIC</h2>
+            <hr>
+            <P>Spares Mechanic is your Trusted <br>
+                Online Destination for Car Spares <br>
+                in South Africa. Shop over 3000 new, <br>
+                used,and alternative parts online for <br>
+                hassle-free car spares shopping.</P>
+
+                <div class="logo">
+                    <a href="index.html"><img src="../INDEX/logo1.png" alt="alphamechanic"></a>
+                </div>
+        </div>
+        <div class="content-footer">
+            <h2>CATEGORIES</h2>
+            <hr>
+            <div class="footer-menu">
+                <a href="">All pairs</a>
+                <a href="">Accessories</a>
+            </div>
+        </div>
+        <div class="content-footer">
+            <h2>INFORMATION</h2>
+            <hr>
+            <div class="footer-menu">
+                <a href="">Home</a>
+                <a href="">About Us</a>
+                <a href="">Contact Us</a>
+                <a href="">Terms & Conditions</a>
+            </div>
+        </div>
+        <div class="content-footer" id="contact">
+            <h2>Contact Us</h2>
+            <hr>
+            <div class="footer-menu">
+                <a href="">+27 64 858 7175</a>
+                <a href="">info@alphamechanic.com</a>
+            </div>
+            <h2>FOLLOW US</h2>
+            <div class="social-media">
+                <a href=""><i class="fab fa-facebook-f"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+                <a href=""><i class="fab fa-instagram"></i></a>
+                
+            </div>
+        </div>
+
+    </div>
+    <!-- <div class="copyright">
+        <p style="color: rgb(38, 37, 37);text-align: center;margin-top: 100px;">Copyright© 2023 Spares Mechanic - All Rights Reserved.</p>
+    </div> -->
+</footer>
+<script>
+function confirmLogout() {
+    // Show a confirmation dialog
+    var confirmation = confirm("Are you sure you want to logout?");
+    
+    // If the user confirmed, redirect to the logout.php script
+     // If the user confirmed, redirect to the logout.php script
+     if (confirmation) {
+        window.location.href = "..\logout.php"; // Change to your logout page URL
+    } else {
+        return; // If the user clicks "Cancel", just return (do nothing)
+    }
+}
+</script>
+<script>
+    function trackOrder() {
+        var orderNumber = document.getElementById('orderNumber').value;
+        var orderStatus = document.getElementById('orderStatus');
+        var statusMessage = document.getElementById('statusMessage');
+        
+        if(orderNumber === '') {
+            statusMessage.innerText = 'Please enter an order number.';
+            orderStatus.style.display = 'block';
+            return;
+        }
+        
+        // Example of tracking status. This could be replaced with an actual backend API call.
+        if(orderNumber === '1234567890') {
+            statusMessage.innerText = 'Order Status: Shipped. Expected delivery: 3-5 business days.';
+        } else {
+            statusMessage.innerText = 'Order not found. Please check your order number.';
+        }
+        
+        orderStatus.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
