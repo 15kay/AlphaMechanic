@@ -1,0 +1,194 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+.header {
+    background-color: #20252b;
+    display: flex;
+    color: aliceblue;
+    gap: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+    padding: 10px 20px;
+    height: 60px;
+}
+
+.header .top-header a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.header h5 {
+    margin: 0;
+}
+.top-header {
+    display: flex;
+    margin-left: 1250px;
+    gap: 30px;
+    font-size: 19px;
+}
+
+.top-header i {
+    margin-top: 25px;
+    height: 20px;
+    color: #f8f9fa;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    height: 100vh;
+    background-color: #20252b;
+    color: white;
+    position: fixed;
+    width: 250px;
+    top: 79px;
+    /* top: 50px; Adjust for header height */
+    z-index: 1;
+}
+
+.sidebar .nav-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 30px 20px;
+    display: block;
+    
+    font-size: 18px;
+
+}
+
+.sidebar .nav-menu a:hover {
+    background-color: #495057;
+}
+
+.sidebar .nav-menu a.active {
+    background-color: #0c0d0f;
+    color: #fff;
+}
+
+.sidebar .nav-menu i {
+    margin-right: 10px;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 250px;
+    margin-top: 80px;
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 60px);
+    width: calc(100% - 350px);
+    background-color: #f8f9fa;
+}
+
+.main-content h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.main-content p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.user-info {
+    margin-right: 50px;
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    gap: 50px;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+table th {
+    background-color: #0c0d0f;
+    color: #fff;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-update {
+    background-color: #007bff;
+}
+
+.btn-complete {
+    background-color: #28a745;
+}
+
+.btn-cancel {
+    background-color: #dc3545;
+}
+
+.btn-signout {
+    background-color: #16140d;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Profile Styles */
+.courier-profile, .customer-profile {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.courier-profile p, .customer-profile p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.courier-profile .btn-update, .customer-profile .btn-update {
+    display: inline-block;
+}
